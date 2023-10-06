@@ -1,0 +1,14 @@
+-- Crear la tabla "Letra"
+CREATE TABLE Letra (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    letra VARCHAR(1) NOT NULL,
+    matriz_binaria BLOB
+);
+
+-- Crear la tabla "Aprendizaje" con la clave foránea que referencia a "Letra"
+CREATE TABLE Aprendizaje (
+    id_aprendizaje INT AUTO_INCREMENT PRIMARY KEY,
+    id INT,
+    matriz_limite BLOB,
+    FOREIGN KEY (id) REFERENCES Letra(id)
+);
