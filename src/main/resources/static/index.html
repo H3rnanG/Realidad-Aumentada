@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Realidad Aumentada</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+	<script src="js/index.js"></script>
+</head>
+
+<body>
+	<div class="d-flex justify-content-center align-items-center"
+		style="width: 100vw; height: 100vh; background-color:#d8d8d8;">
+		<div class="w-25 p-4" style="background-color: #fff; height: min-content; border-radius: 10px;">
+			<h1>Subir una imagen</h1>
+			<p>Subir una imagen de una letra para su análisis y reconocimiento.</p>
+			<div>
+				<input class="form-control form-control-lg" id="fileInput" type="file">
+				<img id="originalImage" style="max-width: 100%; max-height: 200px; margin-top: 10px;" />
+				<img id="resizedImage" style="max-width: 100%; max-height: 200px; margin-top: 10px;" />
+			</div>
+			<button type="button" onclick="analizar()" class="btn btn-success mt-3 w-100">Analizar</button>
+		</div>
+	</div>
+</body>
+
+</html>
