@@ -25,7 +25,7 @@ public class Letra {
     @Column(name = "letra")
     private String letra;
     
-    @Column(name = "matriz_binaria")
-    private Blob matriz_binaria;
+    @Column(name = "array_binario", length = 3000)
+    private byte[] arrayBinario;
     
 }

@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.sql.Blob;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +30,7 @@ public class Aprendizaje {
     @Column(name = "area_pintada")
     private Long areaPintada;
     
-    @Column(name = "array_binario")
-    private String arrayBinario;
+    
+    @Column(name = "array_binario", length = 3000)
+    private byte[] arrayBinario;
 }

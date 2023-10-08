@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import net.main.modelo.Aprendizaje;
+import net.main.modelo.Letra;
 import net.main.servicio.AprendizajeServicio;
 import net.main.servicio.LetraServicio;
 
@@ -23,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import org.springframework.http.MediaType;
@@ -36,57 +39,45 @@ public class LetraController {
 	@Autowired
 	private AprendizajeServicio aprendizajeServicio;
 
-	/*@PostMapping("analizar")
-	public ResponseEntity<byte[]> analizarLetra(@RequestParam("file") MultipartFile file) {
-		if (file.isEmpty()) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
-
+	@PostMapping("analizar") 
+	public Aprendizaje analizarImagen(@RequestParam("file") MultipartFile fileInput){
+		
+		BufferedImage processedImage = aprendizajeServicio.procesarImagen(fileInput);
+		int[][] pixelMatrix = null;
 		try {
-			BufferedImage originalImage = ImageIO.read(file.getInputStream());
-			int newWidth = 50;
-			int newHeight = 50;
-
-			// Redimensionar la imagen a 50x50 píxeles
-			Image resizedImage = originalImage.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-			BufferedImage bufferedResizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_RGB);
-			bufferedResizedImage.getGraphics().drawImage(resizedImage, 0, 0, null);
-
-			// Convertir la imagen redimensionada a blanco y negro
-			for (int y = 0; y < newHeight; y++) {
-				for (int x = 0; x < newWidth; x++) {
-					int pixel = bufferedResizedImage.getRGB(x, y);
-					int red = (pixel >> 16) & 0xFF;
-					int green = (pixel >> 8) & 0xFF;
-					int blue = pixel & 0xFF;
-
-					if (!(red == 0 && green == 0 && blue == 0) && !(red == 255 && green == 255 && blue == 255)) {
-						bufferedResizedImage.setRGB(x, y, Color.WHITE.getRGB());
-					}
-				}
-			}
-
-			// Crear un flujo de salida para la imagen en formato PNG
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ImageIO.write(bufferedResizedImage, "png", baos);
-			byte[] resizedImageBytes = baos.toByteArray();
-
-			String name = file.getOriginalFilename();
-			// file
-			String box = "./images/";
-
-			File exitFile = new File(box + name + "_ri.png");
-			ImageIO.write(bufferedResizedImage, "png", exitFile);
-
-			// Devuelve la imagen redimensionada y en blanco y negro como respuesta binaria
-			return ResponseEntity.ok().body(resizedImageBytes);
-
+			pixelMatrix = aprendizajeServicio.binarizarImagen(processedImage);
 		} catch (IOException e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}*/
 
-	@PostMapping("analizar")
+		int[] arrayBinario = aprendizajeServicio.arrayBinario(pixelMatrix);
+		
+		Aprendizaje letra = aprendizajeServicio.encontrarLetraSimilar(arrayBinario, aprendizajeServicio.TraerImagenes(arrayBinario));
+		
+		
+		return letra;
+	}
+	
+	//tst
+	@PostMapping("ver") 
+	public List<Aprendizaje> verImagenes(@RequestParam("file") MultipartFile fileInput){
+		
+		BufferedImage processedImage = aprendizajeServicio.procesarImagen(fileInput);
+		int[][] pixelMatrix = null;
+		try {
+			pixelMatrix = aprendizajeServicio.binarizarImagen(processedImage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int[] arrayBinario = aprendizajeServicio.arrayBinario(pixelMatrix);
+		
+		return aprendizajeServicio.TraerImagenes(arrayBinario);
+	}
+	
+
+	@PostMapping("proceso")
 	public ResponseEntity<byte[]> ProcesarImagen(@RequestParam("file") MultipartFile file) {
 
 		try {
@@ -111,10 +102,16 @@ public class LetraController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 		}
 	}
-	
-	
+
 	@PostMapping("guardar")
-	public void GuardarImagen(@RequestParam("file")MultipartFile file, @RequestParam("nombre") String nombre) {
-		
+	public void GuardarImagen(@RequestParam("file") MultipartFile file, @RequestParam("nombre") String nombre)
+			throws IOException {
+		BufferedImage processedImage = aprendizajeServicio.procesarImagen(file);
+		int[][] pixelMatrix = aprendizajeServicio.binarizarImagen(processedImage);
+
+		int[] arrayBinario = aprendizajeServicio.arrayBinario(pixelMatrix);
+
+		aprendizajeServicio.guardarLetra(arrayBinario, nombre);
+
 	}
 }

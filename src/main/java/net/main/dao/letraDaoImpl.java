@@ -5,16 +5,15 @@ import jakarta.persistence.PersistenceContext;
 import net.main.servicio.LetraServicio;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
-@Transactional
+@Service
 public class letraDaoImpl implements LetraServicio{
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Override
     public void analizar() {
         
     }
