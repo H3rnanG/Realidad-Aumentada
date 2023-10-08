@@ -1,4 +1,4 @@
-package net.model;
+package net.main.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,25 +9,25 @@ import jakarta.persistence.Table;
 import java.sql.Blob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@Entity @Table(name = "letra")
-public class Letra {
+@Entity @Table(name = "aprendizaje")
+public class Aprendizaje {
 
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "letra")
-    private String letra;
+    @Column(name = "nombre")
+    private String nombre;
     
-    @Column(name = "matriz_binaria")
-    private Blob matriz_binaria;
+    @Column(name = "area_pintada")
+    private Long areaPintada;
     
-    public Letra(){
-    
-    }
-    
+    @Column(name = "array_binario")
+    private String arrayBinario;
 }

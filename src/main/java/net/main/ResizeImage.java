@@ -12,7 +12,7 @@ public class ResizeImage {
 
     public static void main(String[] args) {
 
-        System.out.println(resize("images/proof.png"));
+        System.out.println(resize("images/letraa.jpg"));
     }
 
     public static String resize(String imagePath){
@@ -45,9 +45,6 @@ public class ResizeImage {
             ImageIO.write(finalImage, "png", exitFile);
 
             return exitFile.toString();
-
-
-
 
         }catch (IOException e){
             e.printStackTrace();

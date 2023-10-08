@@ -1,4 +1,4 @@
-package net.model;
+package net.main.modelo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,11 +9,13 @@ import jakarta.persistence.Table;
 import java.sql.Blob;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@Entity @Table(name = "aprendizaje")
-public class Aprendizaje {
+@Entity @Table(name = "letra")
+public class Letra {
 
     @Id
     @Column(name = "id")
@@ -25,9 +27,5 @@ public class Aprendizaje {
     
     @Column(name = "matriz_binaria")
     private Blob matriz_binaria;
-    
-    public Aprendizaje(){
-    
-    }
     
 }

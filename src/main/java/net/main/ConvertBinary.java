@@ -9,7 +9,7 @@ import java.io.IOException;
 public class ConvertBinary {
 
     public static void main(String[] args) {
-        System.out.println(convert("images_bw/proof_ri_bw.png"));
+        System.out.println(convert("images/letra_ri.png"));
     }
 
     public static String convert(String imagePath){
@@ -43,7 +43,7 @@ public class ConvertBinary {
             return binary.toString();
 
         }catch (IOException e){
-            e.printStackTrace();
+            e.getStackTrace();
             return "";
         }
     }
