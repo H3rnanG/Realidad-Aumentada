@@ -1,0 +1,5 @@
+- **Lenguaje de Programación Backend:** Java
+- **Framework de Backend:** Spring Boot
+- **Lenguaje de Programación Frontend:** Angular
+- **Motor de Base de Datos:** Firebird
+- **Bibliotecas de Procesamiento de Imágenes:** JavaCV o Java ImageIO (según necesidades específicas)

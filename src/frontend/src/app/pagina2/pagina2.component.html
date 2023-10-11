@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="pagina2.component.css">
+    <title>Subir Imagen</title>
+    <style>
+        .container {
+            margin-top: 5%;
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+
+        .custom-file-label {
+            overflow: hidden;
+        }
+
+        .input-group-append .btn {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h1 class="text-center">
+                            <i class="fas fa-cloud-upload-alt"></i> Subir Imagen
+                        </h1>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="file">
+                                    <i class="fas fa-image"></i> Seleccionar Imagen
+                                </label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input
+                                            type="file"
+                                            class="custom-file-input"
+                                            id="file"
+                                            name="file"
+                                            accept="image/*"
+                                            required
+                                            (change)="onFileSelected($event); previewImage($event)"
+                                        />
+                                        <label class="custom-file-label" for="file">
+                                            {{ selectedFileName || "Elegir archivo" }}
+                                        </label>
+                                    </div>
+                                    <div class="input-group-append">
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            id="cameraButton"
+                                            (click)="openCamera()"
+                                        >
+                                            <i class="fas fa-camera"></i> Abrir Cámara
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="btn btn-danger"
+                                            id="closeCameraButton"
+                                            style="display: none"
+                                            (click)="closeCamera()"
+                                        >
+                                            <i class="fas fa-times"></i> Cerrar Cámara
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-cloud-upload-alt"></i> Subir
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="a3" style="display: flex; align-items: center; justify-content: center;">
+                        <img class="imagen" *ngIf="imageSrc" [src]="imageSrc" alt="Vista previa de la imagen">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+    <a routerLink="/home">Ir a la página 1</a> 
